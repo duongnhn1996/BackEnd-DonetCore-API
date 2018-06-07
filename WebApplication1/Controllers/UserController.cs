@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using EmailWeb.Models;
 using EmailWeb.Controllers;
 using Microsoft.Extensions.Configuration;
+using System.Net.Http;
+using System.Threading;
 
 namespace EmailWeb.Controllers
 {
@@ -18,13 +20,18 @@ namespace EmailWeb.Controllers
              IConfiguration configuration) :
              base(context, configuration)
         { }
-        //// GET: api/Users
+        ////// GET: api/Users
+        //public HttpResponseMessage Get(string gender="all")
+        //{
+        //    string username = Thread.CurrentPrincipal.Identity.Name;
+        //    return "0k";
+        //}
         [HttpGet]
-        public IEnumerable<User> Get()
-        {
-            var user = DbContext.User.ToList();
-            return user;
-        }
+        //public IEnumerable<User> Get()
+        //{
+        //    var user = DbContext.User.ToList();
+        //    return user;
+        //}
         // GET: api/Users/?username
         //public IEnumerable<User> Get(string username)
         //{
@@ -32,6 +39,12 @@ namespace EmailWeb.Controllers
         //    return DbContext.User.Where(x => x.Username == username).ToList();
 
         //}
+        //public static bool  Login<(string username,string password)
+        //{
+
+        //    DbContext.User
+        //}
+
         // GET: api/User/5
         [HttpGet("{username}", Name = "GetUser")]
         public IEnumerable<User> Get(string username)

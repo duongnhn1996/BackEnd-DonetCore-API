@@ -25,6 +25,7 @@ namespace WebApplication1
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddMvcCore(options =>
              {
                  options.RequireHttpsPermanent = true; // does not affect api requests
@@ -57,7 +58,8 @@ namespace WebApplication1
             }
 
             app.UseStaticFiles();
-
+            app.UseCors(builder => builder.AllowAnyOrigin());
+            // /*https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-2.1*/
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
