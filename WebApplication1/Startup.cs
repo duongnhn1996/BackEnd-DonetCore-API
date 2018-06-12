@@ -32,20 +32,22 @@ namespace EmailWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors(options =>
-            {
-                options.AddPolicy("AllowSpecificOrigin",
-                    builder => builder.WithOrigins("http://localhost:4200"));
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("AllowSpecificOrigin",
+            //        builder => builder.WithOrigins("http://localhost:4200"));
+            //});
+            services.AddCors();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
+                
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
                     ValidateIssuer=true,
                     ValidateAudience=true,
                     ValidateIssuerSigningKey=true,
-                    ValidIssuer="mysite.com",
-                    ValidAudience="mysite.com",
+                    ValidIssuer= "http://localhost:4200",
+                    ValidAudience = "http://localhost:4200",
                     IssuerSigningKey=  new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ahbasshfbsahjfbshajbfhjasbfashjbfsajhfvashjfashfbsahfbsahfksdjf"))
                    
                 };
@@ -74,7 +76,7 @@ namespace EmailWeb
 
             }
 
-            app.UseCors("AllowSpecificOrigin");
+            app.UseCors(builder => builder.AllowAnyOrigin());
 
 
             app.UseAuthentication();

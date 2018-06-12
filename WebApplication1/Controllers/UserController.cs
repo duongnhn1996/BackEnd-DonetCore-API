@@ -9,6 +9,7 @@ using EmailWeb.Controllers;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using System.Threading;
+using System.Security.Claims;
 
 namespace EmailWeb.Controllers
 {
@@ -51,7 +52,15 @@ namespace EmailWeb.Controllers
         {
             return DbContext.User.Where(x => x.Username == username).ToList();
         }
-        
+        //[HttpGet]
+        //[Route("api/GetUserInfo")]
+        //public User GetUserInfo()
+        //{
+        //    var identityClaims = (ClaimsIdentity)User.Identities;
+        //    IEnumerable<Claim> claims = identityClaims.Claims;
+        //    User model = new User();
+        //    { }
+        //}
         // POST: api/User
         [HttpPost]
         public void Post([FromBody]string value)

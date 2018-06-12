@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Cors;
 namespace EmailWeb.Controllers
 {
     //[Authorize]
-    [EnableCors("AllowSpecificOrigin")]
+  
     [Produces("application/json")]
     [Route("api/Emails")]
     public class EmailsController : BaseController

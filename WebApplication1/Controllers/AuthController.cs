@@ -13,7 +13,6 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace EmailWeb.Controllers
 {
-    [EnableCors("AllowSpecificOrigin")]
     [Route("api/[controller]")]
     public class AuthController : BaseController
     {
@@ -30,12 +29,16 @@ namespace EmailWeb.Controllers
             {
                 var credValue = header.ToString().Substring("Basic ".Length).Trim();
                 var usernameAndPassenc = Encoding.UTF8.GetString(Convert.FromBase64String(credValue)); //admin:pass
+                //var usernameAndPassenc = credValue;
                 var usernameAndPass = usernameAndPassenc.Split(":");
                 //check in DB username and pass exist
-          
 
-                if (usernameAndPass[0] == "Admin" && usernameAndPass[1] == "pass")
+
+                
+                //if (usernameAndPass[0] == "admin" && usernameAndPass[1] == "admin")
+                if (DbContext.User.Any(x => x.Username == usernameAndPass[0] && x.Password == usernameAndPass[1]))
                 {
+
                     var claimsdata = new[] { new Claim(ClaimTypes.Name, usernameAndPass[0]) };
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ahbasshfbsahjfbshajbfhjasbfashjbfsajhfvashjfashfbsahfbsahfksdjf"));
                     var signInCred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
@@ -52,7 +55,7 @@ namespace EmailWeb.Controllers
             }
             return BadRequest("wrong request");
 
-            // return View();
+            //// return View();
         }
     }
 }
