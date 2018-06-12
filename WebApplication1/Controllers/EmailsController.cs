@@ -7,10 +7,11 @@ using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Web.Http.Results;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmailWeb.Controllers
 {
-
+    [Authorize]
     [Produces("application/json")]
     [Route("api/Emails")]
     public class EmailsController : BaseController

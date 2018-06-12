@@ -27,11 +27,11 @@ namespace EmailWeb.Controllers
         //    return "0k";
         //}
         [HttpGet]
-        //public IEnumerable<User> Get()
-        //{
-        //    var user = DbContext.User.ToList();
-        //    return user;
-        //}
+        public IEnumerable<User> Get()
+        {
+            var user = DbContext.User.ToList();
+            return user;
+        }
         // GET: api/Users/?username
         //public IEnumerable<User> Get(string username)
         //{
