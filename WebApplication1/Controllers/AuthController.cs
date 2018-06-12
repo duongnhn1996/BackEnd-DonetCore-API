@@ -5,14 +5,22 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using EmailWeb.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace EmailWeb.Controllers
 {
+    [EnableCors("AllowSpecificOrigin")]
     [Route("api/[controller]")]
-    public class AuthController : Controller
+    public class AuthController : BaseController
     {
+        public AuthController(webMailContext context, IConfiguration configuration) : base(context, configuration)
+        {
+        }
+
         [HttpPost("token")]
         public IActionResult Token()
         {
@@ -24,6 +32,7 @@ namespace EmailWeb.Controllers
                 var usernameAndPassenc = Encoding.UTF8.GetString(Convert.FromBase64String(credValue)); //admin:pass
                 var usernameAndPass = usernameAndPassenc.Split(":");
                 //check in DB username and pass exist
+          
 
                 if (usernameAndPass[0] == "Admin" && usernameAndPass[1] == "pass")
                 {

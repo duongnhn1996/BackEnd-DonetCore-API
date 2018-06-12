@@ -8,10 +8,12 @@ using System.Collections.Generic;
 using System.Web.Http.Results;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace EmailWeb.Controllers
 {
-    [Authorize]
+    //[Authorize]
+    [EnableCors("AllowSpecificOrigin")]
     [Produces("application/json")]
     [Route("api/Emails")]
     public class EmailsController : BaseController

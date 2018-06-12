@@ -14,6 +14,9 @@ using Newtonsoft.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace EmailWeb
 {
@@ -29,6 +32,11 @@ namespace EmailWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:4200"));
+            });
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new TokenValidationParameters
@@ -42,13 +50,18 @@ namespace EmailWeb
                    
                 };
             });
-            services.AddMvc();
-            services.AddCors();
-            services.AddMvcCore()
+            
+            services.AddMvcCore(options =>
+            {
+                options.RequireHttpsPermanent = true;
+                options.RespectBrowserAcceptHeader = true; // false by default
+                                                            //options.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
+             })
        
         .AddJsonFormatters(); 
             var connection = @"Server=DESKTOP-GGLC8LP\DUONGSQL;Database=webMail;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<webMailContext>(options => options.UseSqlServer(connection));
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,14 +70,15 @@ namespace EmailWeb
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseBrowserLink();
+                app.UseMvcWithDefaultRoute();
+
             }
+
+            app.UseCors("AllowSpecificOrigin");
 
 
             app.UseAuthentication();
-            //app.UseStaticFiles();
-            //app.UseCors(builder => builder.AllowAnyOrigin());
-            //// /*https://docs.microsoft.com/en-us/aspnet/core/security/cors?view=aspnetcore-2.1*/
+
             app.UseMvc();
         }
     }

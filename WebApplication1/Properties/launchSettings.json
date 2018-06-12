@@ -11,15 +11,15 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchUrl": "api/emails", // startup
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "WebApplication1": {
+    "EmailWeb": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/values",
+      "launchUrl": "api/emails", 
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
