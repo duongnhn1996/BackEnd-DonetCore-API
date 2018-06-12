@@ -33,31 +33,20 @@ namespace EmailWeb
             {
                 options.TokenValidationParameters = new TokenValidationParameters
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = "mysite.com",
-                    ValidAudience = "mysite.com",
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ahbasshfbsahjfbshajbfhjasbfashjbfsajhfvashjfashfbsahfbsahfksdjf"))
-
+                    ValidateIssuer=true,
+                    ValidateAudience=true,
+                    ValidateIssuerSigningKey=true,
+                    ValidIssuer="mysite.com",
+                    ValidAudience="mysite.com",
+                    IssuerSigningKey=  new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ahbasshfbsahjfbshajbfhjasbfashjbfsajhfvashjfashfbsahfbsahfksdjf"))
+                   
                 };
             });
+            services.AddMvc();
             services.AddCors();
-            services.AddMvcCore(options =>
-             {
-                 options.RequireHttpsPermanent = true; // does not affect api requests
-                 options.RespectBrowserAcceptHeader = true; // false by default
-                                                            //options.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
-             })
-        //         .AddAuthorization() // Note - this is on the IMvcBuilder, not the service collection
-        //.AddJsonFormatters(options => options.ContractResolver = new CamelCasePropertyNamesContractResolver())
-        ////.AddApiExplorer()
-        //.AddAuthorization()
-        .AddFormatterMappings()
-        //.AddCacheTagHelper()
-        //.AddDataAnnotations()
-        //.AddCors()
-        .AddJsonFormatters(); // JSON, or you can build your own custom one (above)
+            services.AddMvcCore()
+       
+        .AddJsonFormatters(); 
             var connection = @"Server=DESKTOP-GGLC8LP\DUONGSQL;Database=webMail;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<webMailContext>(options => options.UseSqlServer(connection));
         }

@@ -5,8 +5,6 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 
@@ -27,7 +25,7 @@ namespace EmailWeb.Controllers
                 var usernameAndPass = usernameAndPassenc.Split(":");
                 //check in DB username and pass exist
 
-                if (usernameAndPass[0] == "admin" && usernameAndPass[1] == "admin")
+                if (usernameAndPass[0] == "Admin" && usernameAndPass[1] == "pass")
                 {
                     var claimsdata = new[] { new Claim(ClaimTypes.Name, usernameAndPass[0]) };
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ahbasshfbsahjfbshajbfhjasbfashjbfsajhfvashjfashfbsahfbsahfksdjf"));
