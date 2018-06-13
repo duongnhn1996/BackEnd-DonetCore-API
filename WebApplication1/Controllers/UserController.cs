@@ -21,62 +21,32 @@ namespace EmailWeb.Controllers
              IConfiguration configuration) :
              base(context, configuration)
         { }
-        ////// GET: api/Users
-        //public HttpResponseMessage Get(string gender="all")
-        //{
-        //    string username = Thread.CurrentPrincipal.Identity.Name;
-        //    return "0k";
-        //}
+
         [HttpGet]
         public IEnumerable<User> Get()
         {
             var user = DbContext.User.ToList();
             return user;
         }
-        // GET: api/Users/?username
-        //public IEnumerable<User> Get(string username)
-        //{
-
-        //    return DbContext.User.Where(x => x.Username == username).ToList();
-
-        //}
-        //public static bool  Login<(string username,string password)
-        //{
-
-        //    DbContext.User
-        //}
-
-        // GET: api/User/5
-        [HttpGet("{username}", Name = "GetUser")]
-        public IEnumerable<User> Get(string username)
-        {
-            return DbContext.User.Where(x => x.Username == username).ToList();
-        }
-        //[HttpGet]
-        //[Route("api/GetUserInfo")]
-        //public User GetUserInfo()
-        //{
-        //    var identityClaims = (ClaimsIdentity)User.Identities;
-        //    IEnumerable<Claim> claims = identityClaims.Claims;
-        //    User model = new User();
-        //    { }
-        //}
-        // POST: api/User
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<IActionResult> Post([FromBody]User model)
         {
+            using (var context = new webMailContext())
+            {
+                context.User.Add(new User
+                {
+                    Username = model.Username,
+                    Password = model.Password,
+                    Email = model.Email,
+                    Fullname = model.Fullname,
+                    Role = model.Role
+                });
+
+                return Ok(await context.SaveChangesAsync());
+            }
         }
-        
-        // PUT: api/User/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-        
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+
+
+
     }
 }

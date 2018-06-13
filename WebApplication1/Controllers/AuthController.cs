@@ -19,6 +19,7 @@ namespace EmailWeb.Controllers
         public AuthController(webMailContext context, IConfiguration configuration) : base(context, configuration)
         {
         }
+        
 
         [HttpPost("token")]
         public IActionResult Token()

@@ -18,5 +18,7 @@ namespace EmailWeb.Models
         public int? Role { get; set; }
 
         public ICollection<Emails> EmailNavigation { get; set; }
+
+        
     }
 }
