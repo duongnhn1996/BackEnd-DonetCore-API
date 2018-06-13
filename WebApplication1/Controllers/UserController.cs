@@ -31,19 +31,17 @@ namespace EmailWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]User model)
         {
-            using (var context = new webMailContext())
-            {
-                context.User.Add(new User
+          
+                DbContext.User.Add(new User
                 {
                     Username = model.Username,
                     Password = model.Password,
                     Email = model.Email,
                     Fullname = model.Fullname,
-                    Role = model.Role
                 });
 
-                return Ok(await context.SaveChangesAsync());
-            }
+                return Ok(await DbContext.SaveChangesAsync());
+            
         }
 
 
