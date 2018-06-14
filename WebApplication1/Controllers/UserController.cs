@@ -10,9 +10,11 @@ using Microsoft.Extensions.Configuration;
 using System.Net.Http;
 using System.Threading;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Cors;
 
 namespace EmailWeb.Controllers
 {
+    [EnableCors("CorsPolicy")]
     [Produces("application/json")]
     [Route("api/User")]
     public class UserController : BaseController

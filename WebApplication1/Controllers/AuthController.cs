@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace EmailWeb.Controllers
 {
+    [EnableCors("CorsPolicy")]
     [Route("api/[controller]")]
     public class AuthController : BaseController
     {

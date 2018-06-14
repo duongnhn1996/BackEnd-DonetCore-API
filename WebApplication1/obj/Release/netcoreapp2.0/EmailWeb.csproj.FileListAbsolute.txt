@@ -1,0 +1,11 @@
+C:\Users\Duy Nguyen\Documents\GitHub\BackEnd-DonetCore-API\WebApplication1\bin\Release\netcoreapp2.0\EmailWeb.deps.json
+C:\Users\Duy Nguyen\Documents\GitHub\BackEnd-DonetCore-API\WebApplication1\bin\Release\netcoreapp2.0\EmailWeb.runtimeconfig.json
+C:\Users\Duy Nguyen\Documents\GitHub\BackEnd-DonetCore-API\WebApplication1\bin\Release\netcoreapp2.0\EmailWeb.runtimeconfig.dev.json
+C:\Users\Duy Nguyen\Documents\GitHub\BackEnd-DonetCore-API\WebApplication1\bin\Release\netcoreapp2.0\EmailWeb.dll
+C:\Users\Duy Nguyen\Documents\GitHub\BackEnd-DonetCore-API\WebApplication1\bin\Release\netcoreapp2.0\EmailWeb.pdb
+C:\Users\Duy Nguyen\Documents\GitHub\BackEnd-DonetCore-API\WebApplication1\obj\Release\netcoreapp2.0\EmailWeb.csprojAssemblyReference.cache
+C:\Users\Duy Nguyen\Documents\GitHub\BackEnd-DonetCore-API\WebApplication1\obj\Release\netcoreapp2.0\EmailWeb.csproj.CoreCompileInputs.cache
+C:\Users\Duy Nguyen\Documents\GitHub\BackEnd-DonetCore-API\WebApplication1\obj\Release\netcoreapp2.0\EmailWeb.AssemblyInfoInputs.cache
+C:\Users\Duy Nguyen\Documents\GitHub\BackEnd-DonetCore-API\WebApplication1\obj\Release\netcoreapp2.0\EmailWeb.AssemblyInfo.cs
+C:\Users\Duy Nguyen\Documents\GitHub\BackEnd-DonetCore-API\WebApplication1\obj\Release\netcoreapp2.0\EmailWeb.dll
+C:\Users\Duy Nguyen\Documents\GitHub\BackEnd-DonetCore-API\WebApplication1\obj\Release\netcoreapp2.0\EmailWeb.pdb

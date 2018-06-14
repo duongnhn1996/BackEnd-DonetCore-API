@@ -32,12 +32,17 @@ namespace EmailWeb
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddCors(options =>
-            //{
-            //    options.AddPolicy("AllowSpecificOrigin",
-            //        builder => builder.WithOrigins("http://localhost:4200"));
-            //});
-            services.AddCors();
+            
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
+               
+            });
+
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 
@@ -61,10 +66,11 @@ namespace EmailWeb
              })
        
         .AddJsonFormatters(); 
-            var connection = @"Server=DESKTOP-GGLC8LP\DUONGSQL;Database=webMail;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=DESKTOP-T9LHE24;Database=webMail;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<webMailContext>(options => options.UseSqlServer(connection));
             services.AddMvc();
         }
+            
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -76,12 +82,12 @@ namespace EmailWeb
 
             }
 
-            app.UseCors(builder => builder.AllowAnyOrigin());
-
-
-            app.UseAuthentication();
+            app.UseCors("CorsPolicy");
+            
+            //app.UseAuthentication();
 
             app.UseMvc();
         }
+      
     }
 }
