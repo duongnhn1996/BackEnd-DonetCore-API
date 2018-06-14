@@ -13583,11 +13583,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Web Learning\\DotnetCore\\WebApplication1\\WebApplication1\\EmailWeb.csproj",
+      "projectUniqueName": "E:\\Web Learning\\DotnetCore\\GitHub\\Backend DotNet Core API\\BackEnd-DonetCore-API\\WebApplication1\\EmailWeb.csproj",
       "projectName": "EmailWeb",
-      "projectPath": "E:\\Web Learning\\DotnetCore\\WebApplication1\\WebApplication1\\EmailWeb.csproj",
+      "projectPath": "E:\\Web Learning\\DotnetCore\\GitHub\\Backend DotNet Core API\\BackEnd-DonetCore-API\\WebApplication1\\EmailWeb.csproj",
       "packagesPath": "C:\\Users\\Pino\\.nuget\\packages\\",
-      "outputPath": "E:\\Web Learning\\DotnetCore\\WebApplication1\\WebApplication1\\obj\\",
+      "outputPath": "E:\\Web Learning\\DotnetCore\\GitHub\\Backend DotNet Core API\\BackEnd-DonetCore-API\\WebApplication1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
