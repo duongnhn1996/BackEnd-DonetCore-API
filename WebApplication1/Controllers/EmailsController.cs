@@ -9,11 +9,12 @@ using System.Web.Http.Results;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using System.Threading.Tasks;
 
 namespace EmailWeb.Controllers
 {
-    //[Authorize]
-  
+
+    [EnableCors("CorsPolicy")]
     [Produces("application/json")]
     [Route("api/Emails")]
     public class EmailsController : BaseController
@@ -23,18 +24,28 @@ namespace EmailWeb.Controllers
            IConfiguration configuration) :
            base(context, configuration)
         { }
-        //// GET: api/Emails
-        [HttpGet]
-        public JsonResult Get()
+
+        [HttpPost]
+        public async Task<IActionResult> Post([FromBody]Emails model)
         {
-            var emails = DbContext.Email.ToArray();
-            return Json(data: emails);
+
+            DbContext.Email.Add(new Emails
+            {
+                Email = model.Email,
+                Subject = model.Subject,
+                Messages = model.Messages,
+                UserId = model.UserId
+            });
+
+            return Ok(await DbContext.SaveChangesAsync());
+
         }
-        //GET: api/Emails/?userid
-        public IEnumerable<Emails> GetMailByUser(int userID = 0)
+        // GET: api/Emails/username
+        [HttpGet("/api/getmail/{username}")]
+        public IEnumerable<Emails> GetMailByUser(string username)
         {
-  
-                return DbContext.Email.Where(x => x.UserId == userID).ToList();
+            //var user = DbContext.User.Where(x => x.Username == username).SingleOrDefault();
+                return DbContext.Email.Where(x => x.User.Username == username).ToList();
             
             
         }
@@ -63,6 +74,14 @@ namespace EmailWeb.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            var itemremove = DbContext.Email.SingleOrDefault(x => x.Id==id);
+            if (itemremove != null)
+            {
+                DbContext.Email.Remove(itemremove);
+                DbContext.SaveChanges();
+
+            }
+            
         }
     }
 }

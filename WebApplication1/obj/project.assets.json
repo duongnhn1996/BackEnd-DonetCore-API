@@ -13577,23 +13577,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Duy Nguyen\\.nuget\\packages\\": {},
+    "C:\\Users\\Pino\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Duy Nguyen\\Documents\\GitHub\\BackEnd-DonetCore-API\\WebApplication1\\EmailWeb.csproj",
+      "projectUniqueName": "E:\\Web Learning\\DotnetCore\\GitHub\\Backend DotNet Core API\\BackEnd-DonetCore-API\\WebApplication1\\EmailWeb.csproj",
       "projectName": "EmailWeb",
-      "projectPath": "C:\\Users\\Duy Nguyen\\Documents\\GitHub\\BackEnd-DonetCore-API\\WebApplication1\\EmailWeb.csproj",
-      "packagesPath": "C:\\Users\\Duy Nguyen\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Duy Nguyen\\Documents\\GitHub\\BackEnd-DonetCore-API\\WebApplication1\\obj\\",
+      "projectPath": "E:\\Web Learning\\DotnetCore\\GitHub\\Backend DotNet Core API\\BackEnd-DonetCore-API\\WebApplication1\\EmailWeb.csproj",
+      "packagesPath": "C:\\Users\\Pino\\.nuget\\packages\\",
+      "outputPath": "E:\\Web Learning\\DotnetCore\\GitHub\\Backend DotNet Core API\\BackEnd-DonetCore-API\\WebApplication1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Duy Nguyen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Pino\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

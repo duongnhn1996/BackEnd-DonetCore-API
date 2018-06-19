@@ -66,7 +66,7 @@ namespace EmailWeb
              })
        
         .AddJsonFormatters(); 
-            var connection = @"Server=DESKTOP-T9LHE24;Database=webMail;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=DESKTOP-GGLC8LP\DUONGSQL;Database=webMail;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<webMailContext>(options => options.UseSqlServer(connection));
             services.AddMvc();
         }

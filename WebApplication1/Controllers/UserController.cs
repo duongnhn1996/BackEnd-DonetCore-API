@@ -2,15 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EmailWeb.Models;
-using EmailWeb.Controllers;
 using Microsoft.Extensions.Configuration;
-using System.Net.Http;
-using System.Threading;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Cors;
+using System.Security.Claims;
 
 namespace EmailWeb.Controllers
 {
@@ -23,13 +19,18 @@ namespace EmailWeb.Controllers
              IConfiguration configuration) :
              base(context, configuration)
         { }
+   
 
         [HttpGet]
         public IEnumerable<User> Get()
         {
-            var user = DbContext.User.ToList();
+            //var user = DbContext.User.ToList();
+            //return user
+            string duong="duong";
+            var user =  DbContext.User.Where(x => x.Username ==duong).ToList();
             return user;
         }
+       
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]User model)
         {
@@ -45,6 +46,25 @@ namespace EmailWeb.Controllers
                 return Ok(await DbContext.SaveChangesAsync());
             
         }
+        [HttpGet]
+        public User getUserInfo()
+        {
+            //var identityClaims = (System.Security.Claims.ClaimsIdentity)User.Identity;
+            //IEnumerable<Claim> claims = identityClaims.Claims;
+            //User model = new User()
+            //{
+            //    Username = identityClaims.FindFirst("Username").Value,
+            //    Email = identityClaims.FindFirst("Email").Value,
+            //    Fullname = identityClaims.FindFirst("Fullname").Value,
+            //    //Role = identityClaims.FindFirst("Role").ToString().Value;
+            //    Username = identityClaims.FindFirst("Username").Value,
+            //    Email = identityClaims.FindFirst("Email").Value,
+            //};
+            //return model;
+            var user = DbContext.User.SingleOrDefault();
+            return user;
+        }
+
 
 
 

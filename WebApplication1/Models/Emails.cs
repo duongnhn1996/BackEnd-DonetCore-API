@@ -9,7 +9,7 @@ namespace EmailWeb.Models
         public string Subject { get; set; }
         public string Email { get; set; }
         public string Messages { get; set; }
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
         public User User { get; set; }
     }
 }

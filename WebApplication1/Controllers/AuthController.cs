@@ -20,8 +20,9 @@ namespace EmailWeb.Controllers
         public AuthController(webMailContext context, IConfiguration configuration) : base(context, configuration)
         {
         }
-        
 
+
+     
         [HttpPost("token")]
         public IActionResult Token()
         {
@@ -36,12 +37,17 @@ namespace EmailWeb.Controllers
                 //check in DB username and pass exist
 
 
-                
+
                 //if (usernameAndPass[0] == "admin" && usernameAndPass[1] == "admin")
                 if (DbContext.User.Any(x => x.Username == usernameAndPass[0] && x.Password == usernameAndPass[1]))
                 {
-
-                    var claimsdata = new[] { new Claim(ClaimTypes.Name, usernameAndPass[0]) };
+                    var usr = DbContext.User.Where(x => x.Username == usernameAndPass[0]).SingleOrDefault();
+                    var claimsdata = new[] {
+                        new Claim("username", usernameAndPass[0]),
+                        new Claim("email", usr.Email.ToString()),
+                        new Claim("Fullname", usr.Fullname.ToString()),
+                        new Claim("role", usr.Role.ToString())
+                    };
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ahbasshfbsahjfbshajbfhjasbfashjbfsajhfvashjfashfbsahfbsahfksdjf"));
                     var signInCred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
                     var token = new JwtSecurityToken(
