@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 namespace EmailWeb.Controllers
 {
 
-    [EnableCors("CorsPolicy")]
+
     [Produces("application/json")]
     [Route("api/Emails")]
     public class EmailsController : BaseController
@@ -48,6 +48,12 @@ namespace EmailWeb.Controllers
                 return DbContext.Email.Where(x => x.User.Username == username).ToList();
             
             
+        }
+        [HttpGet]
+        public IEnumerable<Emails> Get()
+        {
+           
+            return DbContext.Email.ToList();
         }
         // GET: api/Emails/5
         [HttpGet("{id}", Name = "GetEmail")]

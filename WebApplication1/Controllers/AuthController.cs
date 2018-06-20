@@ -45,6 +45,7 @@ namespace EmailWeb.Controllers
                     var claimsdata = new[] {
                         new Claim("username", usernameAndPass[0]),
                         new Claim("email", usr.Email.ToString()),
+                        new Claim("id", usr.Id.ToString()),
                         new Claim("Fullname", usr.Fullname.ToString()),
                         new Claim("role", usr.Role.ToString())
                     };
