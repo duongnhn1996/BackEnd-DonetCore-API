@@ -35,8 +35,8 @@ namespace EmailWeb.Models
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.Email)
-                    .HasColumnName("email")
+                entity.Property(e => e.MailTo)
+                    .HasColumnName("mailto")
                     .HasMaxLength(100);
 
                 entity.Property(e => e.Messages).HasColumnName("messages");

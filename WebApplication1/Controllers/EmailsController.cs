@@ -10,71 +10,81 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using System.Threading.Tasks;
+using MimeKit;
+using MailKit.Net.Smtp;
 
 namespace EmailWeb.Controllers
 {
-
-
+    [EnableCors("CorsPolicy")]
     [Produces("application/json")]
     [Route("api/Emails")]
     public class EmailsController : BaseController
     {
-
         public EmailsController(webMailContext context,
-           IConfiguration configuration) :
-           base(context, configuration)
+            IConfiguration configuration) :
+            base(context, configuration)
         { }
-
-        [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Emails model)
+        
+        [HttpGet]
+        public IEnumerable<Emails> Get()
         {
 
+            return  DbContext.Email.ToList();
+        }
+
+        [HttpPost("/api/savemail")]
+        public IActionResult savemail([FromBody]Emails model)
+        {
+            var messages = new MimeMessage();
+            messages.From.Add(new MailboxAddress("vochanhdai2k@gmail.com"));
+            messages.To.Add(new MailboxAddress(model.MailTo));
+            messages.Subject = model.Subject;
+            messages.Body = new TextPart("plain")
+            {
+                Text = model.Messages
+            };
+            using (var client = new SmtpClient())
+            {
+                client.Connect("smtp.gmail.com", 587, false);
+                client.AuthenticationMechanisms.Remove("XOAUTH2");
+                client.Authenticate("vochanhdai2k@gmail.com", "vochanhdai@2K");
+                client.Send(messages);
+                client.Disconnect(true);
+            }
             DbContext.Email.Add(new Emails
             {
-                Email = model.Email,
+                MailTo = model.MailTo,
                 Subject = model.Subject,
                 Messages = model.Messages,
                 UserId = model.UserId
             });
-
-            return Ok(await DbContext.SaveChangesAsync());
+            DbContext.SaveChanges();
+            return Ok("done");
 
         }
         // GET: api/Emails/username
         [HttpGet("/api/getmail/{username}")]
         public IEnumerable<Emails> GetMailByUser(string username)
         {
-            //var user = DbContext.User.Where(x => x.Username == username).SingleOrDefault();
                 return DbContext.Email.Where(x => x.User.Username == username).ToList();
             
             
         }
-        [HttpGet]
-        public IEnumerable<Emails> Get()
-        {
-           
-            return DbContext.Email.ToList();
-        }
-        // GET: api/Emails/5
-        [HttpGet("{id}", Name = "GetEmail")]
-        public Emails GetID(int id)
-        {
-            var emails = DbContext.Email.FirstOrDefault(e => e.UserId == id);
-            return emails;
+        //// GET: api/Emails/5
+        //[HttpGet("{id}", Name = "GetEmail")]
+        //public Emails GetID(int id)
+        //{
+        //    var emails = DbContext.Email.FirstOrDefault(e => e.UserId == id);
+        //    return emails;
           
-        }
+        //}
         
-        // POST: api/Emails
-        [HttpPost]
-        public void Post([FromBody]string value)
-        {
-        }
-        
-        // PUT: api/Emails/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+      
+        //// PUT: api/Emails/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
         
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]

@@ -18,6 +18,6 @@ namespace EmailWeb.Models
         public int? Role { get; set; }
 
         public ICollection<Emails> EmailNavigation { get; set; }
-        //public string Emails { get; internal set; }
+        
     }
 }
