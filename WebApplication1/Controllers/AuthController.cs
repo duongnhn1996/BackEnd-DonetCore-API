@@ -38,8 +38,8 @@ namespace EmailWeb.Controllers
 
 
 
-                //if (usernameAndPass[0] == "admin" && usernameAndPass[1] == "admin")
-                if (DbContext.User.Any(x => x.Username == usernameAndPass[0] && x.Password == usernameAndPass[1]))
+                
+                if (DbContext.User.Any(x => x.Username == usernameAndPass[0] &&  BCrypt.Net.BCrypt.Verify(usernameAndPass[1],x.Password)))
                 {
                     var usr = DbContext.User.Where(x => x.Username == usernameAndPass[0]).SingleOrDefault();
                     var claimsdata = new[] {

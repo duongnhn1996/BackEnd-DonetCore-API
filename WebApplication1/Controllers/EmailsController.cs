@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Cors;
 using System.Threading.Tasks;
 using MimeKit;
 using MailKit.Net.Smtp;
+using System.Collections;
 
 namespace EmailWeb.Controllers
 {
@@ -64,11 +65,15 @@ namespace EmailWeb.Controllers
         }
         // GET: api/Emails/username
         [HttpGet("/api/getmail/{username}")]
-        public IEnumerable<Emails> GetMailByUser(string username)
+        public IEnumerable GetMailByUser(string username)
         {
-                return DbContext.Email.Where(x => x.User.Username == username).ToList();
-            
-            
+            //var user=  DbContext.User.Where(x => x.Username == username).SingleOrDefault();
+            //if (user.Role != 1)
+            //{
+            //    return DbContext.Email.ToList();
+            //}
+             return DbContext.Email.Where(x => x.User.Username == username).ToList();
+
         }
         //// GET: api/Emails/5
         //[HttpGet("{id}", Name = "GetEmail")]
@@ -76,16 +81,16 @@ namespace EmailWeb.Controllers
         //{
         //    var emails = DbContext.Email.FirstOrDefault(e => e.UserId == id);
         //    return emails;
-          
+
         //}
-        
-      
+
+
         //// PUT: api/Emails/5
         //[HttpPut("{id}")]
         //public void Put(int id, [FromBody]string value)
         //{
         //}
-        
+
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)

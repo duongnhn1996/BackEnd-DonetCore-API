@@ -2,6 +2,19 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v2.0": {
+      "BCrypt.Net-Core/1.4.0": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.1",
+          "System.Runtime.Extensions": "4.1.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/BCrypt.Net-Core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/BCrypt.Net-Core.dll": {}
+        }
+      },
       "Libuv/1.10.0": {
         "type": "package",
         "dependencies": {
@@ -5306,6 +5319,20 @@
     }
   },
   "libraries": {
+    "BCrypt.Net-Core/1.4.0": {
+      "sha512": "61fIfobQh+o1vsoLTY6abM2UnyFLGAXJSqLYAwlNMfC3445kDD57AqLrJIAOFcHsgn+T3i8tbCP0ugK5btA6Uw==",
+      "type": "package",
+      "path": "bcrypt.net-core/1.4.0",
+      "files": [
+        "bcrypt.net-core.1.4.0.nupkg.sha512",
+        "bcrypt.net-core.nuspec",
+        "lib/net40/BCrypt.Net-Core.dll",
+        "lib/net45/BCrypt.Net-Core.dll",
+        "lib/net451/BCrypt.Net-Core.dll",
+        "lib/net452/BCrypt.Net-Core.dll",
+        "lib/netstandard1.3/BCrypt.Net-Core.dll"
+      ]
+    },
     "Libuv/1.10.0": {
       "sha512": "GsCf4q+eyaI49rCPlgYxdxa1SQCysXFFdSJWdstrwxytg4+VPYLYrXD4AT2rjHVJ+UF7SSWX9CapWEYaU4ejVQ==",
       "type": "package",
@@ -13924,6 +13951,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v2.0": [
+      "BCrypt.Net-Core >= 1.4.0",
       "MailKit >= 2.0.4",
       "Microsoft.AspNet.Identity.Core >= 2.2.1",
       "Microsoft.AspNet.WebApi.Core >= 5.2.6",
@@ -13978,6 +14006,10 @@
     "frameworks": {
       "netcoreapp2.0": {
         "dependencies": {
+          "BCrypt.Net-Core": {
+            "target": "Package",
+            "version": "[1.4.0, )"
+          },
           "MailKit": {
             "target": "Package",
             "version": "[2.0.4, )"

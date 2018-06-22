@@ -19,31 +19,37 @@ namespace EmailWeb.Controllers
              IConfiguration configuration) :
              base(context, configuration)
         { }
-   
 
-        [HttpGet]
-        public IEnumerable<User> Get()
-        {
-            //var user = DbContext.User.ToList();
-            //return user
-            string duong="duong";
-            var user =  DbContext.User.Where(x => x.Username ==duong).ToList();
-            return user;
-        }
-       
+        
+
+        //[HttpGet]
+        //public IActionResult Get()
+        //{
+        ////    //var user = DbContext.User.ToList();
+        ////    //return user
+        ////    string duong="duong";
+        ////    //var user = BCrypt.Net.BCrypt.Verify(duong, "$10$jEPbLVL1DTHHf8fhry3mcORc3AmDKHAPHFaOQJJqDbShk9z7Bwtby");
+        ////    return Ok(user);
+        ////}
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]User model)
         {
-          
-                DbContext.User.Add(new User
+            //if (ModelState.IsValid) { // mang giá trị false khi 1 thuộc tính nào đó mang giá trị không hợp lệ.
+            if (DbContext.User.Any(x => x.Username == model.Username))
+                return StatusCode(400, "User exits please try againt!");
+            var hashPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
+            DbContext.User.Add(new User
                 {
                     Username = model.Username,
-                    Password = model.Password,
+                    Password = hashPassword,
                     Email = model.Email,
                     Fullname = model.Fullname,
                 });
 
-                return Ok(await DbContext.SaveChangesAsync());
+            return Ok(await DbContext.SaveChangesAsync());
+            //}
+            //return BadRequest("Register not success!");
             
         }
        

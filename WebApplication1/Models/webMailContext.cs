@@ -68,7 +68,7 @@ namespace EmailWeb.Models
 
                 entity.Property(e => e.Password)
                     .HasColumnName("password")
-                    .HasMaxLength(25)
+                    .HasMaxLength(100)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Role)
