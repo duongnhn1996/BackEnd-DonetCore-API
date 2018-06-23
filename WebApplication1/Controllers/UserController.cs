@@ -7,6 +7,7 @@ using EmailWeb.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Cors;
 using System.Security.Claims;
+using System.Net;
 
 namespace EmailWeb.Controllers
 {
@@ -35,9 +36,12 @@ namespace EmailWeb.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]User model)
         {
-            //if (ModelState.IsValid) { // mang giá trị false khi 1 thuộc tính nào đó mang giá trị không hợp lệ.
-            if (DbContext.User.Any(x => x.Username == model.Username))
-                return StatusCode(400, "User exits please try againt!");
+            if (ModelState.IsValid)
+            { // mang giá trị false khi 1 thuộc tính nào đó mang giá trị không hợp lệ.
+                if (DbContext.User.Any(x => x.Username == model.Username))
+                 return StatusCode((int)HttpStatusCode.NotAcceptable, "USERNAME EXITS");
+            if (DbContext.User.Any(x => x.Email == model.Email))
+                return StatusCode((int)HttpStatusCode.NotAcceptable, "EMAIL EXITS");
             var hashPassword = BCrypt.Net.BCrypt.HashPassword(model.Password);
             DbContext.User.Add(new User
                 {
@@ -48,9 +52,9 @@ namespace EmailWeb.Controllers
                 });
 
             return Ok(await DbContext.SaveChangesAsync());
-            //}
-            //return BadRequest("Register not success!");
-            
+            }
+            return StatusCode((int)HttpStatusCode.NotAcceptable, "Register failed");
+
         }
        
 

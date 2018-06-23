@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace EmailWeb.Models
 {
@@ -11,9 +12,19 @@ namespace EmailWeb.Models
         }
 
         public int Id { get; set; }
+
+        [Required(AllowEmptyStrings = false)]
+        [RegularExpression(@"^[a-zA-Z0-9._-]+$", ErrorMessage = "Username is not a valid! You only use 'a - z','A - Z','0 - 9','.','_' ")]
         public string Username { get; set; }
+
+        [Required(AllowEmptyStrings = false)]
         public string Password { get; set; }
+
+        [Required(AllowEmptyStrings = false)]
+        [EmailAddress]
         public string Email { get; set; }
+
+        [Required(AllowEmptyStrings = false)]
         public string Fullname { get; set; }
         public int? Role { get; set; }
 
