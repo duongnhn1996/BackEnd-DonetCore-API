@@ -16,6 +16,7 @@ using System.Collections;
 
 namespace EmailWeb.Controllers
 {
+    [Authorize]
     [EnableCors("CorsPolicy")]
     [Produces("application/json")]
     [Route("api/Emails")]

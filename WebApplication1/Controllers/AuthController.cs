@@ -49,12 +49,12 @@ namespace EmailWeb.Controllers
                         new Claim("Fullname", usr.Fullname.ToString()),
                         new Claim("role", usr.Role.ToString())
                     };
-                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ahbasshfbsahjfbshajbfhjasbfashjbfsajhfvashjfashfbsahfbsahfksdjf"));
+                    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thisisverykhokey"));
                     var signInCred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
                     var token = new JwtSecurityToken(
                          issuer: "mysite.com",
                          audience: "mysite.com",
-                         expires: DateTime.Now.AddMinutes(1),
+                         expires: DateTime.Now.AddMinutes(10),
                          claims: claimsdata,
                          signingCredentials: signInCred
                         );

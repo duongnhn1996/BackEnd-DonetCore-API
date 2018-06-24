@@ -51,21 +51,22 @@ namespace EmailWeb
                     ValidateIssuer=true,
                     ValidateAudience=true,
                     ValidateIssuerSigningKey=true,
-                    ValidIssuer= "http://localhost:4200",
-                    ValidAudience = "http://localhost:4200",
-                    IssuerSigningKey=  new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ahbasshfbsahjfbshajbfhjasbfashjbfsajhfvashjfashfbsahfbsahfksdjf"))
+                    ValidIssuer= "mysite.com",
+                    ValidAudience = "mysite.com",
+                    IssuerSigningKey=  new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thisisverykhokey"))
                    
                 };
             });
-            
-            services.AddMvcCore(options =>
+
+            services.AddMvcCore(
+                options =>
             {
-                options.RequireHttpsPermanent = true;
+                //options.RequireHttpsPermanent = true;
                 options.RespectBrowserAcceptHeader = true; // false by default
-                                                            //options.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
-             })
-       
-        .AddJsonFormatters(); 
+                                                           //options.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
+            })
+
+        .AddJsonFormatters();
             var connection = @"Server=DESKTOP-GGLC8LP\DUONGSQL;Database=webMail;Trusted_Connection=True;ConnectRetryCount=0";
             services.AddDbContext<webMailContext>(options => options.UseSqlServer(connection));
             services.AddMvc();
@@ -78,13 +79,13 @@ namespace EmailWeb
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseMvcWithDefaultRoute();
+
 
             }
 
             app.UseCors("CorsPolicy");
-            
-            //app.UseAuthentication();
+
+            app.UseAuthentication();
 
             app.UseMvc();
         }

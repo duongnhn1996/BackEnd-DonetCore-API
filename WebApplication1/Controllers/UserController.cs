@@ -8,9 +8,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Cors;
 using System.Security.Claims;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EmailWeb.Controllers
 {
+    
     [EnableCors("CorsPolicy")]
     [Produces("application/json")]
     [Route("api/User")]
