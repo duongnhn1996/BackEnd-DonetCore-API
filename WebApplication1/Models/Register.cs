@@ -7,9 +7,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace EmailWeb.Models
 {
-    public partial class User
+    public partial class Register
     {
-        public User()
+        public Register()
         {
             EmailNavigation = new HashSet<Emails>();
         }
@@ -32,8 +32,16 @@ namespace EmailWeb.Models
         public int? Role { get; set; }
 
         public ICollection<Emails> EmailNavigation { get; set; }
-        
+
+        public string ReCaptcha { get; set; }
     }
-  
+    public class CaptchaVerification
+    {
+        [JsonProperty("success")]
+        public bool Success { get; set; }
+
+        [JsonProperty("error-codes")]
+        public IList Errors { get; set; }
+    }
 
 }

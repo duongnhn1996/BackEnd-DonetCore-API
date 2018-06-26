@@ -44,7 +44,7 @@ namespace EmailWeb.Models
                 entity.Property(e => e.Subject)
                     .HasColumnName("subject")
                     .HasMaxLength(200);
-
+               
                 entity.Property(e => e.UserId).HasColumnName("userID");
 
                 entity.HasOne(d => d.User)
@@ -61,6 +61,7 @@ namespace EmailWeb.Models
                     .HasColumnName("email")
                     .HasMaxLength(50)
                     .IsUnicode(false);
+              
 
                 entity.Property(e => e.Fullname)
                     .HasColumnName("fullname")
