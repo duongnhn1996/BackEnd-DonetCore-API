@@ -20,3 +20,14 @@ E:\Web Learning\DotnetCore\GitHub\Backend DotNet Core API\BackEnd-DonetCore-API\
 E:\Web Learning\DotnetCore\GitHub\Backend DotNet Core API\BackEnd-DonetCore-API\WebApplication1\obj\Release\netcoreapp2.0\EmailWeb.AssemblyInfo.cs
 E:\Web Learning\DotnetCore\GitHub\Backend DotNet Core API\BackEnd-DonetCore-API\WebApplication1\obj\Release\netcoreapp2.0\EmailWeb.dll
 E:\Web Learning\DotnetCore\GitHub\Backend DotNet Core API\BackEnd-DonetCore-API\WebApplication1\obj\Release\netcoreapp2.0\EmailWeb.pdb
+E:\Web Learning\DotnetCore\GitHub\BackEnd-DonetCore-API\WebApplication1\bin\Release\netcoreapp2.0\EmailWeb.deps.json
+E:\Web Learning\DotnetCore\GitHub\BackEnd-DonetCore-API\WebApplication1\bin\Release\netcoreapp2.0\EmailWeb.runtimeconfig.json
+E:\Web Learning\DotnetCore\GitHub\BackEnd-DonetCore-API\WebApplication1\bin\Release\netcoreapp2.0\EmailWeb.runtimeconfig.dev.json
+E:\Web Learning\DotnetCore\GitHub\BackEnd-DonetCore-API\WebApplication1\bin\Release\netcoreapp2.0\EmailWeb.dll
+E:\Web Learning\DotnetCore\GitHub\BackEnd-DonetCore-API\WebApplication1\bin\Release\netcoreapp2.0\EmailWeb.pdb
+E:\Web Learning\DotnetCore\GitHub\BackEnd-DonetCore-API\WebApplication1\obj\Release\netcoreapp2.0\EmailWeb.csprojAssemblyReference.cache
+E:\Web Learning\DotnetCore\GitHub\BackEnd-DonetCore-API\WebApplication1\obj\Release\netcoreapp2.0\EmailWeb.csproj.CoreCompileInputs.cache
+E:\Web Learning\DotnetCore\GitHub\BackEnd-DonetCore-API\WebApplication1\obj\Release\netcoreapp2.0\EmailWeb.AssemblyInfoInputs.cache
+E:\Web Learning\DotnetCore\GitHub\BackEnd-DonetCore-API\WebApplication1\obj\Release\netcoreapp2.0\EmailWeb.AssemblyInfo.cs
+E:\Web Learning\DotnetCore\GitHub\BackEnd-DonetCore-API\WebApplication1\obj\Release\netcoreapp2.0\EmailWeb.dll
+E:\Web Learning\DotnetCore\GitHub\BackEnd-DonetCore-API\WebApplication1\obj\Release\netcoreapp2.0\EmailWeb.pdb

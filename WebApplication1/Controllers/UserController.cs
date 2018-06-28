@@ -42,7 +42,7 @@ namespace EmailWeb.Controllers
         public async Task<IActionResult> Post([FromBody]Register model)
         {
 
-            //if (ModelState.IsValid)
+            if (ModelState.IsValid)
             { // mang giá trị false khi 1 thuộc tính nào đó mang giá trị không hợp lệ.
                 var result = await VerifyCaptcha(model.ReCaptcha);
                 if (!result.Success)
@@ -65,11 +65,11 @@ namespace EmailWeb.Controllers
 
                 return Ok(await DbContext.SaveChangesAsync());
             }
-            //return StatusCode((int)HttpStatusCode.NotAcceptable, "Register failed");
+            return StatusCode((int)HttpStatusCode.NotAcceptable, "Register failed");
 
         }
 
-            private async Task<CaptchaVerification> VerifyCaptcha(string captchaResponse)
+        private async Task<CaptchaVerification> VerifyCaptcha(string captchaResponse)
         {
             string userIP = string.Empty;
             var ipAddress = Request.HttpContext.Connection.RemoteIpAddress;

@@ -68,6 +68,7 @@ namespace EmailWeb
 
         .AddJsonFormatters();
             var connection = @"Server=DESKTOP-GGLC8LP\DUONGSQL;Database=webMail;Trusted_Connection=True;ConnectRetryCount=0";
+            //var connection = @"Data Source=tcp:demoemailwebdbserver.database.windows.net,1433;Initial Catalog=DemoEmailWeb_db;User Id=pinonguyen@demoemailwebdbserver;Password=NAMduong1234";
             services.AddDbContext<webMailContext>(options => options.UseSqlServer(connection));
             services.AddMvc();
         }

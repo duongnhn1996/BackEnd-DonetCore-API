@@ -13,7 +13,7 @@ namespace EmailWeb.Controllers
     public class ValueController : Controller
     {
         // GET: api/Value
-        [Authorize]
+        
         [HttpGet]
         public IEnumerable<string> Get()
         {
