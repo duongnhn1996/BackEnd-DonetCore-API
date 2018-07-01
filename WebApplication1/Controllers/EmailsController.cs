@@ -41,10 +41,9 @@ namespace EmailWeb.Controllers
             messages.From.Add(new MailboxAddress("vochanhdai2k@gmail.com"));
             messages.To.Add(new MailboxAddress(model.MailTo));
             messages.Subject = model.Subject;
-            messages.Body = new TextPart("plain")
-            {
-                Text = model.Messages
-            };
+            var bodyBuilder = new BodyBuilder();
+            bodyBuilder.HtmlBody = string.Format(model.Messages);
+            messages.Body = bodyBuilder.ToMessageBody();
             using (var client = new SmtpClient())
             {
                 client.Connect("smtp.gmail.com", 587, false);
