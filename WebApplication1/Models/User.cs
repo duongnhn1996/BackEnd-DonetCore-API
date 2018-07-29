@@ -17,7 +17,7 @@ namespace EmailWeb.Models
         public int Id { get; set; }
 
         [Required(AllowEmptyStrings = false)]
-        [RegularExpression(@"^[a-zA-Z0-9._-]+$", ErrorMessage = "Username is not a valid! You only use 'a - z','A - Z','0 - 9','.','_' ")]
+        [RegularExpression(@"^[a-zA-Z0-9._-]+$")]
         public string Username { get; set; }
 
         [Required(AllowEmptyStrings = false)]

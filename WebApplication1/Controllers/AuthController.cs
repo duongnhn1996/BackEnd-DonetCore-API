@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Http.Filters;
 using EmailWeb.Models;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -42,7 +43,7 @@ namespace EmailWeb.Controllers
                 if (DbContext.User.Any(x => x.Username == usernameAndPass[0] &&  BCrypt.Net.BCrypt.Verify(usernameAndPass[1],x.Password)))
                 {
                     var usr = DbContext.User.Where(x => x.Username == usernameAndPass[0]).SingleOrDefault();
-                    var claimsdata = new[] {
+                    var claimsdata = new[] { //claimns là nội dung ở phần payload, info user
                         new Claim("username", usernameAndPass[0]),
                         new Claim("email", usr.Email.ToString()),
                         new Claim("id", usr.Id.ToString()),
@@ -52,9 +53,9 @@ namespace EmailWeb.Controllers
                     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thisisverykhokey"));
                     var signInCred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
                     var token = new JwtSecurityToken(
-                         issuer: "mysite.com",
-                         audience: "mysite.com",
-                         expires: DateTime.Now.AddMinutes(10),
+                         issuer: "localhost:4200",
+                         audience: "localhost:4200",
+                         expires: DateTime.Now.AddMinutes(15), // 15 phut
                          claims: claimsdata,
                          signingCredentials: signInCred
                         );

@@ -17,6 +17,7 @@ using System.Text;
 using Microsoft.Extensions.FileProviders;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EmailWeb
 {
@@ -36,8 +37,10 @@ namespace EmailWeb
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
-                    builder => builder.AllowAnyOrigin()
-                    .AllowAnyMethod()
+                    builder => builder.
+                    //AllowAnyOrigin()
+                    WithOrigins("http://localhost:4200")
+                    .WithMethods("GET", "PUT", "POST", "DELETE")
                     .AllowAnyHeader()
                     .AllowCredentials());
                
@@ -51,8 +54,8 @@ namespace EmailWeb
                     ValidateIssuer=true,
                     ValidateAudience=true,
                     ValidateIssuerSigningKey=true,
-                    ValidIssuer= "mysite.com",
-                    ValidAudience = "mysite.com",
+                    ValidIssuer= "localhost:4200",
+                    ValidAudience = "localhost:4200",
                     IssuerSigningKey=  new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thisisverykhokey"))
                    
                 };
@@ -61,16 +64,21 @@ namespace EmailWeb
             services.AddMvcCore(
                 options =>
             {
+                
                 //options.RequireHttpsPermanent = true;
                 options.RespectBrowserAcceptHeader = true; // false by default
                                                            //options.OutputFormatters.RemoveType<HttpNoContentOutputFormatter>();
             })
 
         .AddJsonFormatters();
-            var connection = @"Server=DESKTOP-GGLC8LP\DUONGSQL;Database=webMail;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=localhost;Database=myEmail;Trusted_Connection=True;ConnectRetryCount=0";
             //var connection = @"Data Source=tcp:demoemailwebdbserver.database.windows.net,1433;Initial Catalog=DemoEmailWeb_db;User Id=pinonguyen@demoemailwebdbserver;Password=NAMduong1234";
             services.AddDbContext<webMailContext>(options => options.UseSqlServer(connection));
-            services.AddMvc();
+            services.AddMvc(
+                options =>
+                {
+                   // options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                });
         }
             
 
@@ -83,6 +91,7 @@ namespace EmailWeb
 
 
             }
+
 
             app.UseCors("CorsPolicy");
 

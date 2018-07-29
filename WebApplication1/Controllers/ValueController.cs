@@ -1,19 +1,37 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmailWeb.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Security.Application;
 
 namespace EmailWeb.Controllers
 {
     [Produces("application/json")]
     [Route("api/Values")]
-    public class ValueController : Controller
+    public class ValueController : BaseController
     {
+        public ValueController(webMailContext context,
+            IConfiguration configuration) :
+            base(context, configuration)
+        { }
         // GET: api/Value
-        
+        [HttpGet("/api/get/{username}")]
+        public IEnumerable GetMailByUser(string username)
+        {
+            
+              return DbContext.Email.Where(x => x.User.Username == username).ToList();
+            
+
+        }
+
+
         [HttpGet]
         public IEnumerable<string> Get()
         {

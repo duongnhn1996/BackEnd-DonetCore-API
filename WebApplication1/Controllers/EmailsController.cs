@@ -13,6 +13,11 @@ using System.Threading.Tasks;
 using MimeKit;
 using MailKit.Net.Smtp;
 using System.Collections;
+using Microsoft.Security.Application;
+using System.Security.Claims;
+using System.Text;
+using System;
+using Newtonsoft.Json;
 
 namespace EmailWeb.Controllers
 {
@@ -35,74 +40,85 @@ namespace EmailWeb.Controllers
         }
 
         [HttpPost("/api/savemail")]
-        public IActionResult savemail([FromBody]Emails model)
+        public async Task<IActionResult> savemailAsync([FromBody]SendMail model)
         {
-            var messages = new MimeMessage();
-            messages.From.Add(new MailboxAddress("vochanhdai2k@gmail.com"));
-            messages.To.Add(new MailboxAddress(model.MailTo));
-            messages.Subject = model.Subject;
-            var bodyBuilder = new BodyBuilder();
-            bodyBuilder.HtmlBody = string.Format(model.Messages);
-            messages.Body = bodyBuilder.ToMessageBody();
-            using (var client = new SmtpClient())
+           
+            if (ModelState.IsValid)
             {
-                client.Connect("smtp.gmail.com", 587, false);
-                client.AuthenticationMechanisms.Remove("XOAUTH2");
-                client.Authenticate("vochanhdai2k@gmail.com", "vochanhdai@2K");
-                client.Send(messages);
-                client.Disconnect(true);
+                var result = await VerifyCaptcha(model.ReCaptcha);
+                if (!result.Success)
+                {
+                    return StatusCode((int)HttpStatusCode.NotAcceptable, "Captcha is not valid");
+                }
+                var messages = new MimeMessage();
+                messages.From.Add(new MailboxAddress("smarteraemail@gmail.com"));
+                messages.To.Add(new MailboxAddress(model.MailTo));
+                messages.Subject = model.Subject;
+                var bodyBuilder = new BodyBuilder();
+                bodyBuilder.HtmlBody = string.Format(model.Messages);
+                messages.Body = bodyBuilder.ToMessageBody();
+                using (var client = new SmtpClient())
+                {
+                    client.Connect("smtp.gmail.com", 587, false);
+                    client.AuthenticationMechanisms.Remove("XOAUTH2");
+                    client.Authenticate("testmailduongnguyen@gmail.com", "daylaMATKHAUr4tkh0#");
+                    client.Send(messages);
+                    client.Disconnect(true);
+                }
+                DbContext.Email.Add(new Emails
+                {
+                    MailTo = model.MailTo,
+                    Subject = model.Subject,
+                    Messages = model.Messages,
+                    UserId = model.UserId
+                });
+                DbContext.SaveChanges();
+                return Ok("Done");
             }
-            DbContext.Email.Add(new Emails
-            {
-                MailTo = model.MailTo,
-                Subject = model.Subject,
-                Messages = model.Messages,
-                UserId = model.UserId
-            });
-            DbContext.SaveChanges();
-            return Ok("done");
+            return StatusCode((int)HttpStatusCode.NotAcceptable, "Du lieu nhap khong hop le!");
 
         }
         // GET: api/Emails/username
         [HttpGet("/api/getmail/{username}")]
         public IEnumerable GetMailByUser(string username)
         {
-            //var user=  DbContext.User.Where(x => x.Username == username).SingleOrDefault();
-            //if (user.Role != 1)
-            //{
-            //    return DbContext.Email.ToList();
-            //}
-             return DbContext.Email.Where(x => x.User.Username == username).ToList();
-
+  
+            return DbContext.Email.Where(x => x.User.Username == username).ToList(); 
         }
-        //// GET: api/Emails/5
-        //[HttpGet("{id}", Name = "GetEmail")]
-        //public Emails GetID(int id)
-        //{
-        //    var emails = DbContext.Email.FirstOrDefault(e => e.UserId == id);
-        //    return emails;
-
-        //}
 
 
-        //// PUT: api/Emails/5
-        //[HttpPut("{id}")]
-        //public void Put(int id, [FromBody]string value)
-        //{
-        //}
-
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // [HttpDelete("{id}")]
+        [ValidateAntiForgeryToken]
+        [HttpPost("/api/del/{id}")]
+        public IActionResult RemoveEmail(int id)
         {
             var itemremove = DbContext.Email.SingleOrDefault(x => x.Id==id);
             if (itemremove != null)
             {
                 DbContext.Email.Remove(itemremove);
                 DbContext.SaveChanges();
+                return Ok("Done");
 
             }
-            
+            return StatusCode((int)HttpStatusCode.NotAcceptable, "Khong xoa duoc");
+
         }
+        private async Task<CaptchaVerification> VerifyCaptcha(string captchaResponse)
+        {
+            string userIP = string.Empty;
+            var ipAddress = Request.HttpContext.Connection.RemoteIpAddress;
+            if (ipAddress != null) userIP = ipAddress.MapToIPv4().ToString();
+            var payload = string.Format("&secret={0}&remoteip={1}&response={2}", "6LedxGAUAAAAAPiUiloBA7bx1_YrVxlAus3jLkX4",
+                userIP, captchaResponse
+            );
+
+            var client = new HttpClient();
+            client.BaseAddress = new Uri("https://www.google.com");
+            var request = new HttpRequestMessage(HttpMethod.Post, "/recaptcha/api/siteverify");
+            request.Content = new StringContent(payload, Encoding.UTF8, "application/x-www-form-urlencoded");
+            var response = await client.SendAsync(request);
+            return JsonConvert.DeserializeObject<CaptchaVerification>(response.Content.ReadAsStringAsync().Result);
+        }
+
     }
 }
