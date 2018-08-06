@@ -38,7 +38,7 @@ namespace EmailWeb
             {
                 options.AddPolicy("CorsPolicy",
                     builder => builder.
-                    //AllowAnyOrigin()
+                   //AllowAnyOrigin()
                     WithOrigins("http://localhost:4200")
                     .WithMethods("GET", "PUT", "POST", "DELETE")
                     .AllowAnyHeader()
