@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web.Http.Controllers;
 using EmailWeb.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -25,12 +30,47 @@ namespace EmailWeb.Controllers
         [HttpGet("/api/get/{username}")]
         public IEnumerable GetMailByUser(string username)
         {
-            
-              return DbContext.Email.Where(x => x.User.Username == username).ToList();
-            
-
+            // demo
+            return DbContext.User.Where(x => x.Username == username).ToList();
+            // khong tra ve loi
+            //return DbContext.User.Where(x => x.Username == username || true).ToList();
         }
+        [HttpGet("/api/del/{id}")]
+        public IActionResult UserDel(int id)
+        {   //csrf
+            var itemremove = DbContext.User.SingleOrDefault(x => x.Id == id);
+            if (itemremove != null)
+            {
+                DbContext.User.Remove(itemremove);
+                DbContext.SaveChanges();
+                return Ok("Done");
 
+            }
+            return StatusCode((int)HttpStatusCode.NotAcceptable, "Khong xoa duoc");
+        }
+        //[HttpGet("/api/get2/{username}")]
+        //public IEnumerable GetMailByUser2(string username)
+        //{
+        //    var connectionString = "Data Source=DESKTOP-3OLT4EN;Initial Catalog=myEmail";
+        //    SqlConnection connection = new SqlConnection(connectionString);
+
+        //    var cmd = new SqlCommand("SELECT * FROM Email ",connection);
+        //   // cmd.Parameters.AddWithValue("@id", id.Text);
+        //    connection.Open();
+        //    SqlDataReader n = cmd.ExecuteReader();
+        //    int contact = (int)n["ID"];
+
+        //    yield return contact;
+        //}
+        [Authorize]
+        [HttpGet("/api/test")]
+        public IActionResult Test()
+        {
+
+            var claim = HttpContext.User.Claims.First(c => c.Type == "username");
+            var userName = claim.Value;
+            return Ok(userName);
+        }
 
         [HttpGet]
         public IEnumerable<string> Get()
@@ -44,7 +84,7 @@ namespace EmailWeb.Controllers
         //{
         //    return "value";
         //}
-        
+        // debug => window=> autos
         // POST: api/Value
         [HttpPost]
         public void Post([FromBody]string value)

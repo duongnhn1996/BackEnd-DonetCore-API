@@ -56,8 +56,9 @@ namespace EmailWeb
                     ValidateIssuerSigningKey=true,
                     ValidIssuer= "localhost:4200",
                     ValidAudience = "localhost:4200",
-                    IssuerSigningKey=  new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thisisverykhokey"))
-                   
+                    IssuerSigningKey=  new SymmetricSecurityKey(Encoding.UTF8.GetBytes("thisisverykhokey")),
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
                 };
             });
 

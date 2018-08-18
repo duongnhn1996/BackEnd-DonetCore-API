@@ -35,12 +35,8 @@ namespace EmailWeb.Controllers
                 var usernameAndPassenc = Encoding.UTF8.GetString(Convert.FromBase64String(credValue)); //admin:pass
                 //var usernameAndPassenc = credValue;
                 var usernameAndPass = usernameAndPassenc.Split(":");
-                //check in DB username and pass exist
-
-
-
-                
-                if (DbContext.User.Any(x => x.Username == usernameAndPass[0] &&  BCrypt.Net.BCrypt.Verify(usernameAndPass[1],x.Password)))
+                //check in DB username and pass exist                
+                if (DbContext.User.Any(x => x.Username == usernameAndPass[0].ToString() &&  BCrypt.Net.BCrypt.Verify(usernameAndPass[1].ToString(), x.Password)))
                 {
                     var usr = DbContext.User.Where(x => x.Username == usernameAndPass[0]).SingleOrDefault();
                     var claimsdata = new[] { //claimns là nội dung ở phần payload, info user

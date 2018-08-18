@@ -28,6 +28,7 @@ namespace EmailWeb.Models
         public string Email { get; set; }
 
         [Required(AllowEmptyStrings = false)]
+        [RegularExpression(@"^[A-Za-zÀ-ú]+ [A-Za-zÀ-ú]+$", ErrorMessage="Full Name not valid")]
         public string Fullname { get; set; }
         public int? Role { get; set; }
 

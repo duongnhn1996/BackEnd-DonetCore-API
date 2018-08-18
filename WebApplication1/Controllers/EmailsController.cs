@@ -31,18 +31,23 @@ namespace EmailWeb.Controllers
             IConfiguration configuration) :
             base(context, configuration)
         { }
-        
+
         [HttpGet]
         public IEnumerable<Emails> Get()
         {
 
-            return  DbContext.Email.ToList();
+            return DbContext.Email.ToList();
         }
-
+        public String CheckUser() {
+            var claim = HttpContext.User.Claims.First(c => c.Type == "username");
+            var userName = claim.Value;
+            if (userName == "") return "1";
+            return userName;
+        }
         [HttpPost("/api/savemail")]
         public async Task<IActionResult> savemailAsync([FromBody]SendMail model)
         {
-           
+            if(CheckUser()=="1") return StatusCode((int)HttpStatusCode.NotAcceptable, "Ban khong co quyen nay");
             if (ModelState.IsValid)
             {
                 var result = await VerifyCaptcha(model.ReCaptcha);
@@ -82,7 +87,10 @@ namespace EmailWeb.Controllers
         [HttpGet("/api/getmail/{username}")]
         public IEnumerable GetMailByUser(string username)
         {
-  
+
+            var userGet = CheckUser();
+            if (userGet == "1" || userGet != username) return "Ban khong co quyen nay";
+
             return DbContext.Email.Where(x => x.User.Username == username).ToList(); 
         }
 
@@ -92,6 +100,7 @@ namespace EmailWeb.Controllers
         [HttpPost("/api/del/{id}")]
         public IActionResult RemoveEmail(int id)
         {
+
             var itemremove = DbContext.Email.SingleOrDefault(x => x.Id==id);
             if (itemremove != null)
             {

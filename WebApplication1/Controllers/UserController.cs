@@ -26,8 +26,6 @@ namespace EmailWeb.Controllers
              base(context, configuration)
         { }
 
-
-
         //[HttpGet]
         //public IActionResult Get()
         //{
@@ -37,7 +35,7 @@ namespace EmailWeb.Controllers
         ////    //var user = BCrypt.Net.BCrypt.Verify(duong, "$10$jEPbLVL1DTHHf8fhry3mcORc3AmDKHAPHFaOQJJqDbShk9z7Bwtby");
         ////    return Ok(user);
         ////}
-        [IgnoreAntiforgeryToken]
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]Register model)
         {
@@ -65,7 +63,7 @@ namespace EmailWeb.Controllers
 
                 return Ok(await DbContext.SaveChangesAsync());
             }
-            return StatusCode((int)HttpStatusCode.NotAcceptable, "Register failed");
+            return BadRequest(ModelState);
 
         }
 
